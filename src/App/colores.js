@@ -1,4 +1,5 @@
 export const AvaibleColors = [
+    { name: "watergreen", color: "#008080" },
     { name: "violet", color: "#734ad5" },
     { name: "green", color: "#59bd5c" },
     { name: "bluesky", color: "#186dc3" },
@@ -7,6 +8,20 @@ export const AvaibleColors = [
     { name: "bluelight",color: "#2187ab"},
   ];
   export const colores = {
+    watergreen: {
+      primary: {
+        light: "#04bbbb1f",
+        main: "#008080",
+        dark: "#004141",
+        contrastText: "#fff",
+      },
+      secondary: {
+        light: "#dd33fa",
+        main: "#d500f9",
+        dark: "#9500ae",
+        contrastText: "#000",
+      },
+    },
     violet: {
       primary: {
         light: "#512da81f",
