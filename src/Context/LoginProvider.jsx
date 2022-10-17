@@ -83,9 +83,7 @@ const LoginProvider = ({children}) => {
     useEffect(() => {
         const ca = new AbortController(); let isActive = true;
         if (isActive) {
-
           verificar();
-         
         }
         return () => {
           isActive = false;

@@ -4,3 +4,11 @@
     align-items: center;
     min-height: calc( 100vh - 20px);
 }
+
+.submenu{
+    padding-left: 10px !important;
+}
+
+.selected{
+    color:inherit;
+}

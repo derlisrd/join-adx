@@ -69,18 +69,27 @@ export const listamenu = [
         url:"/payments",
         icon:"payments",
         hr:false,
-        sub:true
+        sub:true,
+        open:false,
+        submenu:[
+            {
+                id:12,
+                title:"Pagamentos",
+                url:"/payments",
+                icon:"payments",
+            }
+        ]
     },
     {
-        id:9,
+        id:10,
         title:"Conta",
         url:"/settings",
         icon:"settings",
         hr:false,
-        sub:true
+        sub:false
     },
     {
-        id:9,
+        id:11,
         title:"Feedback",
         url:"/feedback",
         icon:"feedback",
