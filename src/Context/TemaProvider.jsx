@@ -25,8 +25,7 @@ const TemaProvider = ({children})=>{
 
     const drawerWidth = 240;
     const [title,setTitle] = useState('Página principal');
-    const [temaMode,setTemaMode] = useState('light');
-
+    
 
     const [openMenu,setOpenMenu] = useState(false)
     const changeStatusMenu = ()=>{setOpenMenu(!openMenu)}
@@ -242,7 +241,7 @@ const TemaProvider = ({children})=>{
         }
       }
       const values = {
-        drawerWidth,changeStatusMenu,openMenu,title,setTitle,temaMode,setTemaMode,changeColor,changeFont,changeTheme
+        drawerWidth,changeStatusMenu,openMenu,title,setTitle,changeColor,changeFont,changeTheme,tema
       }
     
       useEffect(() => {
@@ -264,8 +263,8 @@ const TemaProvider = ({children})=>{
 
 
 export const useTema = ()=>{
-    const {drawerWidth,changeStatusMenu,openMenu,title,setTitle,temaMode,setTemaMode,changeColor,changeFont,changeTheme} = useContext(Contexto)
-    return {drawerWidth,changeStatusMenu,openMenu,title,setTitle,temaMode,setTemaMode,changeColor,changeFont,changeTheme}
+    const {drawerWidth,changeStatusMenu,openMenu,title,setTitle,changeColor,changeFont,changeTheme,tema} = useContext(Contexto)
+    return {drawerWidth,changeStatusMenu,openMenu,title,setTitle,changeColor,changeFont,changeTheme,tema}
 }
 
 export default TemaProvider

@@ -55,7 +55,7 @@ const Dashboard = () => {
           <Typography variant="h6">Saldo</Typography>
           <Typography variant="h5">1539,9 US$</Typography>
           <Typography variant="body1">Último pagamento:</Typography>
-          <Typography variant="body1">130 Us$</Typography>
+          <Typography variant="subtitle2">130 Us$</Typography>
         </Box>
       </Grid>
 
