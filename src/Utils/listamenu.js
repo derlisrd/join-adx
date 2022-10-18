@@ -11,7 +11,7 @@ export const listamenu = [
         id:2,
         title:"Anúncios",
         url:"/anuncios",
-        icon:"widgets",
+        icon:"picture_in_picture",
         hr:false,
         sub:false
     },
@@ -19,7 +19,7 @@ export const listamenu = [
         id:3,
         title:"Sites",
         url:"/sites",
-        icon:"view_list",
+        icon:"web",
         hr:true,
         sub:false
     },
@@ -42,7 +42,7 @@ export const listamenu = [
     {
         id:6,
         title:"Relatorios",
-        url:"/relatorios",
+        url:"/reports",
         icon:"insert_chart",
         hr:false,
         sub:false

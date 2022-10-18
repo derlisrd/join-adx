@@ -27,7 +27,7 @@ const AppBarMenu = () => {
           >
             <Icon>menu</Icon>
           </IconButton>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+          <Typography variant="button" component="div" sx={{ flexGrow: 1 }}>
             {title}
           </Typography>
           <UserMenu />

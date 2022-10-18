@@ -19,7 +19,8 @@ const Dashboard = () => {
     <Grid container spacing={2}>
       <Grid item xs={12} sm={12} md={8}>
         <Box
-          sx={{ backgroundColor: "primary.light" }}
+          bgcolor='primary.light'
+          boxShadow={2}
           padding={3}
           borderRadius={2}
         >
@@ -27,34 +28,36 @@ const Dashboard = () => {
             <Grid xs={12} item>
               <Typography variant="h6">Ganhos estimados</Typography>
             </Grid>
-            <Grid xs={12} sm={12} md={3} item>
-              <Typography variant="subtitle1">Hoje, até o momento</Typography>
-              <Typography variant="h5">18,9 US$</Typography>
+            <Grid xs={12} sm={12} md={6} lg={3} item>
+              <Typography variant="body1">Hoje, até o momento</Typography>
+              <Typography variant="h6">18,9 US$</Typography>
             </Grid>
-            <Grid xs={12} sm={12} md={3} item>
-              <Typography variant="subtitle1">Ontem</Typography>
-              <Typography variant="h5">39,9 US$</Typography>
+            <Grid xs={12} sm={12} md={6} lg={3} item>
+              <Typography variant="body1">Ontem</Typography>
+              <Typography variant="h6">39,9 US$</Typography>
             </Grid>
-            <Grid xs={12} sm={12} md={3} item>
-              <Typography variant="subtitle1">Últimos 7 días</Typography>
-              <Typography variant="h5">539,9 US$</Typography>
+            <Grid xs={12} sm={12} md={6} lg={3} item>
+              <Typography variant="body1">Últimos 7 días</Typography>
+              <Typography variant="h6">539,9 US$</Typography>
             </Grid>
-            <Grid xs={12} sm={12} md={3} item>
-              <Typography variant="subtitle1">Este mes</Typography>
-              <Typography variant="h5">1539,9 US$</Typography>
+            <Grid xs={12} sm={12} md={6} lg={3} item>
+              <Typography variant="body1">Este mes</Typography>
+              <Typography variant="h6">1539,9 US$</Typography>
             </Grid>
           </Grid>
         </Box>
       </Grid>
       <Grid item xs={12} sm={12} md={4}>
         <Box
-          sx={{ backgroundColor: "primary.light" }}
+          backgroundColor="primary.light"
+          borderColor="background.paper"
+          boxShadow={3}
           padding={3}
           borderRadius={2}
         >
           <Typography variant="h6">Saldo</Typography>
-          <Typography variant="h5">1539,9 US$</Typography>
-          <Typography variant="body1">Último pagamento:</Typography>
+          <Typography variant="h6">1539,9 US$</Typography>
+          <Typography variant="body2">Último pagamento:</Typography>
           <Typography variant="subtitle2">130 Us$</Typography>
         </Box>
       </Grid>
@@ -62,7 +65,9 @@ const Dashboard = () => {
       <Grid item xs={12} sm={12} md={6}>
         <Box
           border={1}
-          borderColor="primary.light"
+          borderColor="background.paper"
+          boxShadow={3}
+          backgroundColor="background.paper"
           padding={2}
           borderRadius={2}
         >

@@ -1,5 +1,6 @@
-import { Box, Button, Grid, Icon, TextField, Typography } from "@mui/material";
-import { useCallback, useEffect, useState } from "react";
+import { Alert, Box, Checkbox, FormControlLabel, Grid, Icon, IconButton, InputAdornment, TextField, Typography } from "@mui/material";
+import { LoadingButton } from "@mui/lab";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useLogin } from "../../Context/LoginProvider";
 import styles from '../../Styles/Global.module.css'
 import { env } from "../../App/config";
@@ -11,17 +12,25 @@ const BP = env.BASE_PATH;
 
 function LoginForm() {
   const navigate = useNavigate()
-  const {logIn,userData} = useLogin()
+  const {logIn,userData,load} = useLogin()
   const {login} = userData
   const initialForm = {email:"",password:""}
+  const inputPasswordRef = useRef(null)
   const [form,setForm] = useState(initialForm)
+  const [showPassword,setShowPassword] = useState('password')
+  const [rememberMe,setRememberMe] = useState(false)
+
+  const changeShowPassword = ()=>{
+    setShowPassword(showPassword==='password' ? 'text' : 'password')
+    inputPasswordRef.current.focus();
+  }
   const change = e=>{
     const {name,value} = e.target;
     setForm({
       ...form,[name]:value
     })
   }
-  const enviar = e =>{ e.preventDefault();logIn(form)}
+  const enviar = e =>{ e.preventDefault();logIn(form,rememberMe)}
 
   const verificar = useCallback(()=>{
     if(login) navigate(BP+"/home")
@@ -44,20 +53,48 @@ function LoginForm() {
     <form onSubmit={enviar} >
     <Box boxShadow={3} bgcolor='background.paper' padding={4} borderRadius={5} maxWidth={360}>
       <Grid container spacing={3}>
-      <Grid item xs={12} >
-          <Icon color="primary" fontSize="16">rocket_launch</Icon>
-        </Grid>
         <Grid item xs={12} >
-          <Typography variant="h6">ENTRAR</Typography>
+          <Typography variant="h6" textAlign="center">ENTRAR <Icon color="primary" fontSize="16">rocket_launch</Icon></Typography> 
         </Grid>
         <Grid item xs={12}>
-          <TextField autoFocus fullWidth required label="E-mail" name="email" value={form.email} onChange={change} />
+            {load.active && <Alert variant="outlined" icon={false} severity="error">
+                {load.msj}
+            </Alert>}
         </Grid>
         <Grid item xs={12}>
-          <TextField fullWidth required label="Password" name="password" value={form.password} onChange={change} />
+          <TextField autoFocus fullWidth required label="E-mail" name="email" value={form.email} onChange={change} 
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <Icon color="disabled">mail_outline</Icon>
+                </InputAdornment>
+              )
+            }}
+          />
         </Grid>
         <Grid item xs={12}>
-          <Button fullWidth variant="contained" size="large" type="submit" >Login</Button>
+          <TextField fullWidth required type={showPassword} autoComplete="off" label="Password" name="password" value={form.password} onChange={change}
+          inputRef={inputPasswordRef} 
+           InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <Icon color="disabled">lock_open</Icon>
+              </InputAdornment>
+            ),endAdornment:(
+              <InputAdornment position="end">
+                <IconButton onClick={changeShowPassword}><Icon>{showPassword==='text' ? `visibility_off` : `visibility`}</Icon></IconButton>
+              </InputAdornment>
+            )
+          }}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <FormControlLabel control={<Checkbox checked={rememberMe} onChange={()=>{setRememberMe(!rememberMe)}}  />} label="Lembrar login" />
+        </Grid>
+        <Grid item xs={12}>
+          <LoadingButton fullWidth variant="contained" size="large" type="submit" loading={load.login ? true : false}>
+            Login
+          </LoadingButton>
         </Grid>
       </Grid>
     </Box>

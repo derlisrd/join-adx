@@ -1,14 +1,19 @@
-import {  Box, Icon, IconButton, ListItemIcon, ListItemText, Menu, MenuItem, Tooltip, Typography } from "@mui/material";
+import {  Avatar, Box, Button, Card, CardActions, CardContent, Fade, Icon, IconButton,  Menu, Stack, Tooltip, Typography } from "@mui/material";
 import React, { useState } from "react";
 import { useLogin } from "../../Context/LoginProvider";
 import { useTema } from "../../Context/TemaProvider";
 
 const UserMenu = () => {
-    const {logOut} = useLogin()
+    const {logOut,userData} = useLogin()
     const {changeTheme,tema} = useTema()
-    const [anchorElUser, setAnchorElUser] = useState(null);
-    const handleOpenUserMenu = (event) => setAnchorElUser(event.currentTarget);
-    const handleCloseUserMenu = () =>  setAnchorElUser(null);
+    const [anchorElUser, setAnchorElUser] = useState({
+      user:null,
+      notification: null
+    });
+    const handleOpenUserMenu = (event,name) => {
+      setAnchorElUser({...anchorElUser,[name]:event.currentTarget})
+    };
+    const handleCloseUserMenu = () =>  setAnchorElUser({notification:null,user:null});
   
   return (
     <Box sx={{ flexGrow: 0}}>
@@ -17,15 +22,25 @@ const UserMenu = () => {
           <Icon color="warning">{tema.mode  === 'light' ? 'wb_sunny' : 'dark_mode'}</Icon>
         </IconButton>
       </Tooltip>
-      <Tooltip title="Menu do usuario">
-        <IconButton onClick={handleOpenUserMenu} sx={{ p: 0,mr:1 }}>
-          <Icon>account_circle</Icon>
+      <Tooltip title="Notificações">
+        <IconButton onClick={(e)=>{handleOpenUserMenu(e,'notification')}} sx={{ p: 0,mr:2 }}>
+          <Icon>notifications</Icon>
         </IconButton>
       </Tooltip>
+
+      <Tooltip title="Menu do usuario">
+        <IconButton onClick={(e)=>{handleOpenUserMenu(e,'user')}}sx={{ p: 0,mr:1 }}>
+          <Icon color="primary">account_circle</Icon>
+        </IconButton>
+      </Tooltip>
+
+
+
       <Menu
+        TransitionComponent={Fade}
         sx={{ mt: "45px" }}
         id="menu-appbar"
-        anchorEl={anchorElUser}
+        anchorEl={anchorElUser.notification}
         anchorOrigin={{
           vertical: "top",
           horizontal: "right",
@@ -35,16 +50,72 @@ const UserMenu = () => {
           vertical: "top",
           horizontal: "right",
         }}
-        open={Boolean(anchorElUser)}
+        open={Boolean(anchorElUser.notification)}
         onClose={handleCloseUserMenu}
       >
+        
+        <Card sx={{ minWidth: 275, boxShadow:"none" }}  >
+          <CardContent>
+            
+            <Stack spacing={2} direction="column" justifyContent="center" alignItems="center">
+              <Typography variant="subtitle2" display="block" component="div">Notificações</Typography>
+              <Avatar
+                alt="Notificações"
+                src="https://www.gstatic.com/acx/components/notification/jingles_static.png"
+                sx={{ width: 72, height: 72 }}
+              />
+              <Typography variant="caption" display="block" component="div">Ta em día</Typography>
+            </Stack>
 
-        <MenuItem onClick={logOut}>
-          <ListItemIcon>
-            <Icon>logout</Icon>
-          </ListItemIcon>
-          <ListItemText>Sair</ListItemText>
-        </MenuItem>
+          </CardContent>
+          <CardActions>
+            
+          </CardActions>
+        </Card>
+
+      </Menu>
+
+
+
+      
+      <Menu
+        TransitionComponent={Fade}
+        sx={{ mt: "45px" }}
+        id="menu-appbar"
+        anchorEl={anchorElUser.user}
+        anchorOrigin={{
+          vertical: "top",
+          horizontal: "right",
+        }}
+        keepMounted
+        transformOrigin={{
+          vertical: "top",
+          horizontal: "right",
+        }}
+        open={Boolean(anchorElUser.user)}
+        onClose={handleCloseUserMenu}
+      >
+        
+        <Card sx={{ minWidth: 275, boxShadow:"none" }}  >
+          <CardContent>
+            <Stack spacing={2} direction="row">
+              <div>
+                <Icon sx={{ fontSize: 50 }} color="primary">account_circle</Icon>
+              </div>
+              <div>
+              <Typography variant="caption" display="block">
+                  Usuario:
+                </Typography>
+                <Typography variant="caption" display="block">
+                  {userData.email}
+                </Typography>
+              </div>
+            </Stack>
+          </CardContent>
+          <CardActions>
+            <Button onClick={logOut} variant="outlined" >Sair</Button>
+          </CardActions>
+        </Card>
 
       </Menu>
     </Box>

@@ -5,10 +5,21 @@
     min-height: calc( 100vh - 20px);
 }
 
+.flexcolumn{
+    flex-direction: column;
+}
+
 .submenu{
     padding-left: 10px !important;
 }
 
 .selected{
     color:inherit;
+}
+
+.title404{
+    font-size: 3rem;
+}
+.icon404{
+    font-size:3rem !important;
 }

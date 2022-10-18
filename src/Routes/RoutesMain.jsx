@@ -5,8 +5,10 @@ import { useLogin } from "../Context/LoginProvider";
 import MainPages from "../Pages/MainPages";
 import LoginForm from "../Pages/Auth/LoginForm";
 import Home from "../Pages/Home";
-import Error_404 from "../Pages/Error/ErrorPage";
+import ErrorPage from "../Pages/Error/ErrorPage";
 import Anuncios from "../Pages/Anuncios";
+import Sites from "../Pages/Sites";
+import Reports from "../Pages/Reports";
 
 const BP = env.BASE_PATH;
 
@@ -39,10 +41,12 @@ function RoutesMain() {
     
     return (
         <Routes>
+            <Route path={BP+'/reports'} element={<PrivateRoute><Reports /> </PrivateRoute>} />
+            <Route path={BP+'/sites'} element={<PrivateRoute><Sites /> </PrivateRoute>} />
             <Route path={BP+'/anuncios'} element={<PrivateRoute><Anuncios /> </PrivateRoute>} />
             <Route path={BP+'/home'} element={<PrivateRoute><Home /> </PrivateRoute>} />
             <Route path={BP} element={<LoginForm />} />
-            <Route path="*" element={<Error_404 />} />
+            <Route path="*" element={<ErrorPage />} />
         </Routes>
     );
 }

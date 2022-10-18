@@ -1,3 +1,6 @@
+import axios from "axios"
+import {env} from '../App/config';
+import { /* encode, */ decode } from 'js-base64';
 
 
 export const APICALLER = {
@@ -13,38 +16,45 @@ export const APICALLER = {
     delete: async()=>{
 
     },
-    login: async()=>{
 
-        return {
-            response:true,
-            found:1,
-            results:[
-                {
-                    login:true,
-                    token_user:"12345token",
-                    id_user:1,
-                    nombre_user:"derlis",
-                    username_user:"derlis",
-                    remember:false
-                }
-            ]
+    login: async(form)=>{
+        let url = env.API_END_POINT+'users/auth'
+        let headers = {"Content-Type":"application/json"}
+        try {
+            let res = await axios({method:"post",headers,data:form,url})
+            let data = {
+                response: res.data.status,
+                message: res.data.msg ?? null,
+                results: res.data.user ?? null
+            }
+            return data;
+        } catch (error) {
+            let err = {
+                response: false,
+                message: error.message,
+            }
+            return err;
         }
     },
-    validateToken: async()=>{
-        return {
-            response:true,
-            found:1,
-            results:[
-                {
-                    login:true,
-                    token_user:"12345token",
-                    id_user:1,
-                    nombre_user:"derlis",
-                    username_user:"derlis",
-                    remember:false
-                }
-            ]
-        }
+
+    validateToken: async(token)=>{
+        let datas = decode(token);
+        let url = env.API_END_POINT+'users/auth'
+        let headers = {"Content-Type":"application/json"}
+        try {
+            let res = await axios({method:"post",headers,data:datas,url})
+            let data = {
+                response: res.data.status,
+                message: res.data.msg ?? null,
+                results: res.data.user ?? null
+            }
+            return data;
+        } catch (error) {
+            let err = {
+                response: false,
+                message: error.message,
+            }
+            return err;
+        } 
     }
-    
 }

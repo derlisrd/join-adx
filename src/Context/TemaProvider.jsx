@@ -1,7 +1,7 @@
 import { createTheme,ThemeProvider } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
-import {createContext,useContext,useState,useEffect,useCallback} from 'react';
-import {colores,AvaibleColors} from "../App/colores.js"
+import {createContext,useContext,useState,useEffect} from 'react';
+import {colores} from "../App/colores.js"
 
 const Contexto = createContext()
 
@@ -16,15 +16,15 @@ const TemaProvider = ({children})=>{
       currentColor: localStorageTema?.currentColor || colores["watergreen"].primary.main, //hace referencia al oclor hexadecimal
       fontSize: {
         general: localStorageTema?.fontSize.general || 14,
-        menu: localStorageTema?.fontSize.menu || 15
+        menu: localStorageTema?.fontSize.menu || 13
       }
     })
     const colorText = tema.mode==='light' ? "#4e4d4d" : "#fff";
     const PaperBgColor = tema.mode==='light' ? "#fff" : "#212b36";
     const DefaultBgColor = tema.mode==='light' ? "#f9f9f9" : "#161c24";
 
-    const drawerWidth = 240;
-    const [title,setTitle] = useState('Página principal');
+    const drawerWidth = 270;
+    const [title,setTitle] = useState('');
     
 
     const [openMenu,setOpenMenu] = useState(false)
@@ -150,9 +150,14 @@ const TemaProvider = ({children})=>{
               }
             }
           },
-
-
-          MuiListItemIcon:{
+        MuiList:{
+          styleOverrides:{
+            root:{
+              
+            }
+          }
+        },
+        MuiListItemIcon:{
             styleOverrides:{
               root:{
                 "& span":{
@@ -165,23 +170,34 @@ const TemaProvider = ({children})=>{
           styleOverrides:{
             root:{
               "& span":{
-                fontSize:tema.fontSize.menu
-              },
+                fontSize:tema.fontSize.menu,
+                fontWeight:"bold"
+              }
+          },
           },
         },
-        }
-        ,
-          MuiListItem:{
+        MuiListItemButton:{
+          styleOverrides:{
+            root:{
+              "&:hover": {
+                borderRadius:"0 18px 18px 0",
+              },
+            }
+          }
+        },
+        MuiListItem:{
             styleOverrides:{
               root:{
-                borderRadius:"10px",
+                borderRadius:"0 18px 18px 0",
                 transition:'all 0.02s linear',
                 "&.Mui-selected":{
-                  backgroundColor: tema.mode==="light"? colores[tema.colors].primary.light : colores[tema.colors].primary.main,
+                  backgroundColor: tema.mode==="light"? colores[tema.colors].primary.light : colores[tema.colors].primary.ligth,
                   "& span":{
                     /* fontWeight:"bold", */
-                    color:tema.mode==="light"? colores[tema.colors].primary.main : colorText
-                  }
+                    color:tema.mode==="light"? colores[tema.colors].primary.main : colorText,
+                  },
+                  borderLeft:`4px solid ${colores[tema.colors].primary.main}`,
+                  
                 },
                 "&:hover": {
                   backgroundColor:colores[tema.colors].primary.light,
@@ -234,7 +250,7 @@ const TemaProvider = ({children})=>{
             currentColor: colores["watergreen"].primary.main,
             fontSize: {
               general: 14,
-              menu:15
+              menu:13
             }
           })
           localStorage.setItem("tema",json);

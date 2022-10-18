@@ -1,4 +1,5 @@
 import {
+  Button,
   Collapse,
   Divider,
   Icon,
@@ -8,7 +9,6 @@ import {
   ListItemIcon,
   ListItemText,
   Toolbar,
-  Typography,
 } from "@mui/material";
 import React, { Fragment, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -43,7 +43,7 @@ const ListaMenu = () => {
   return (
     <>
       <Toolbar>
-        <Typography variant="button">Admanager</Typography>
+        <Button fullWidth onClick={()=>{ navegar('/','Página principal')}} startIcon={<Icon>rocket_launch</Icon>}>ADMANAGER</Button>
       </Toolbar>
       <Divider />
       <List component="nav">

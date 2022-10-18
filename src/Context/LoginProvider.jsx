@@ -18,12 +18,9 @@ const LoginProvider = ({children}) => {
     })
     const initialUserData = { 
         login:false,
-        remember:false,
         token_user:null,
-        id_user:null,
-        nombre_user:null,
-        rol_user:null,
-        username_user:null
+        email:null,
+        remember:false
     }
     const [userData,setUserData] = useState( storage ? storage : initialUserData);    
     
@@ -42,10 +39,7 @@ const LoginProvider = ({children}) => {
         
         setUserData({login:false,
             token_user:null,
-            id_user:null,
-            nombre_user:null,
-            rol_user:null,
-            username_user:null,
+            email:null,
             remember:false});
         localStorage.removeItem("userData");
         sessionStorage.removeItem("userData");
@@ -53,27 +47,32 @@ const LoginProvider = ({children}) => {
     },[])
 
     const logIn = async(f,remember)=>{
+        setLoading(true)
         setLoad({login:true,active:false,msj:null});
         let promise = await Promise.all([APICALLER.login(f)]);
         let res = promise[0];
-        
-        if(res.response && res.found>0){
-            setearLogin(res.results[0])
+        if(res.response){
+            setearLogin({
+                login:true,
+                token_user: CifrarTexto( res.results.token ),
+                email:f.email,
+                remember:remember
+            },remember)
+            setLoad({login:false,active:false,msj:null});
         }
         else{
             console.log(res);
             setLoad({login:false,active:true,msj:res.message});
         }
+        setLoading(false)
     }
 
 
     const verificar = useCallback(async()=>{
         setLoading(true);
         if (userData.login) {
-            let res = await APICALLER.validateToken(userData.token_user);
-            if (res.found > 0 && res.response) {
-                
-            }else{
+            let res = await APICALLER.validateToken( Descifrar(userData.token_user) );
+            if (!res.response) {
                 logOut()
             }
         }
@@ -87,9 +86,9 @@ const LoginProvider = ({children}) => {
         }
         return () => {
           isActive = false;
-          ca.abort();
-        };
+          ca.abort();};
       }, [verificar]);
+    
       const values = {userData,logIn,logOut,load,loading,Descifrar}
 
       
