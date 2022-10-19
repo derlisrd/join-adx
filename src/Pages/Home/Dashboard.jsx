@@ -3,7 +3,7 @@ import React from "react";
 import { useHome } from "./HomeProvider";
 
 const Dashboard = () => {
-  const { loading } = useHome();
+  const { loading,data } = useHome();
 
   if (loading) {
     return (
@@ -30,7 +30,7 @@ const Dashboard = () => {
             </Grid>
             <Grid xs={12} sm={12} md={6} lg={3} item>
               <Typography variant="body1">Hoje, até o momento</Typography>
-              <Typography variant="h6">18,9 US$</Typography>
+              <Typography variant="h6">{data.revenue} US$</Typography>
             </Grid>
             <Grid xs={12} sm={12} md={6} lg={3} item>
               <Typography variant="body1">Ontem</Typography>
@@ -86,16 +86,16 @@ const Dashboard = () => {
               <Typography variant="h6">Us$ 1,12</Typography>
             </Grid>
             <Grid item xs={12} md={6}>
-              <Typography variant="subtitle2">Impressoes</Typography>
-              <Typography variant="h6">4,89 mil</Typography>
+              <Typography variant="body1">Impressoes</Typography>
+              <Typography variant="h6">{data.impressions}</Typography>
             </Grid>
             <Grid item xs={12} md={6}>
-              <Typography variant="subtitle2">CPC</Typography>
-              <Typography variant="h6">Us$ 0,12</Typography>
+              <Typography variant="body1">eCPM</Typography>
+              <Typography variant="h6">{data.ecpm} Us$</Typography>
             </Grid>
             <Grid item xs={12} md={6}>
-              <Typography variant="subtitle2">Cliques</Typography>
-              <Typography variant="h6">134</Typography>
+              <Typography variant="body1">Cliques</Typography>
+              <Typography variant="h6">{data.clicks}</Typography>
             </Grid>
             <Grid item xs={12} md={6}>
               <Typography variant="subtitle2">CTR de página</Typography>

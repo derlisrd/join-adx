@@ -1,4 +1,4 @@
-import {  Avatar, Box, Button, Card, CardActions, CardContent, Fade, Icon, IconButton,  Menu, Stack, Tooltip, Typography } from "@mui/material";
+import {  Avatar, Box, Button, Card, CardActions, CardContent, Fade, Icon, IconButton,  Menu, Stack, Tooltip, Typography, Zoom } from "@mui/material";
 import React, { useState } from "react";
 import { useLogin } from "../../Context/LoginProvider";
 import { useTema } from "../../Context/TemaProvider";
@@ -79,7 +79,7 @@ const UserMenu = () => {
 
       
       <Menu
-        TransitionComponent={Fade}
+        TransitionComponent={Zoom}
         sx={{ mt: "45px" }}
         id="menu-appbar"
         anchorEl={anchorElUser.user}
@@ -100,13 +100,16 @@ const UserMenu = () => {
           <CardContent>
             <Stack spacing={2} direction="row">
               <div>
-                <Icon sx={{ fontSize: 50 }} color="primary">account_circle</Icon>
+                <Icon sx={{ fontSize: 60 }} color="primary">account_circle</Icon>
               </div>
               <div>
-              <Typography variant="caption" display="block">
-                  Usuario:
+                <Typography variant="subtitle1" display="block">
+                  Usuario: {userData.name}
                 </Typography>
-                <Typography variant="caption" display="block">
+                <Typography variant="subtitle2" display="block">
+                  Network: {userData.network}
+                </Typography>
+                <Typography variant="body1" display="block">
                   {userData.email}
                 </Typography>
               </div>

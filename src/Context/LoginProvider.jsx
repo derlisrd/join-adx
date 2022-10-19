@@ -6,7 +6,7 @@ import CryptoJS from "crypto-js";
 const LoginContext = createContext()
 
 const LoginProvider = ({children}) => {
-   // const navigate = useNavigate()
+
     const CifrarTexto = t => CryptoJS.AES.encrypt(t, env.SECRETO).toString();
     const Descifrar = t => CryptoJS.AES.decrypt(t, env.SECRETO).toString(CryptoJS.enc.Utf8);
     const storage = JSON.parse(sessionStorage.getItem("userData")) || JSON.parse(localStorage.getItem("userData"));
@@ -18,11 +18,14 @@ const LoginProvider = ({children}) => {
     })
     const initialUserData = { 
         login:false,
+        name:"",
         token_user:null,
         email:null,
-        remember:false
+        remember:false,
+        network:"",
+        id:""
     }
-    const [userData,setUserData] = useState( storage ? storage : initialUserData);    
+    const [userData,setUserData] = useState( storage ?? initialUserData);    
     
     
     
@@ -37,14 +40,20 @@ const LoginProvider = ({children}) => {
 
     const logOut = useCallback(()=>{
         
-        setUserData({login:false,
+        setUserData({
+            login:false,
+            name:"",
             token_user:null,
             email:null,
-            remember:false});
+            remember:false,
+            network:"",
+            id:""
+        });
         localStorage.removeItem("userData");
         sessionStorage.removeItem("userData");
 
     },[])
+
 
     const logIn = async(f,remember)=>{
         setLoading(true)
@@ -52,12 +61,18 @@ const LoginProvider = ({children}) => {
         let promise = await Promise.all([APICALLER.login(f)]);
         let res = promise[0];
         if(res.response){
+            let resp = await APICALLER.validateToken(res.results.token);
+            //console.log(resp);
             setearLogin({
                 login:true,
                 token_user: CifrarTexto( res.results.token ),
                 email:f.email,
-                remember:remember
+                remember:remember,
+                name:resp.results.name,
+                network:resp.results.network,
+                id:resp.results.id
             },remember)
+                
             setLoad({login:false,active:false,msj:null});
         }
         else{
@@ -72,7 +87,8 @@ const LoginProvider = ({children}) => {
         setLoading(true);
         if (userData.login) {
             let res = await APICALLER.validateToken( Descifrar(userData.token_user) );
-            if (!res.response) {
+            //console.log(res)
+            if (!res.response){
                 logOut()
             }
         }

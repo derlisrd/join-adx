@@ -1,21 +1,33 @@
 import axios from "axios"
 import {env} from '../App/config';
-import { /* encode, */ decode } from 'js-base64';
+//import { /* encode, */ decode } from 'js-base64';
+import CryptoJS from "crypto-js";
 
+const Descifrar = t => CryptoJS.AES.decrypt(t, env.SECRETO).toString(CryptoJS.enc.Utf8);
 
 export const APICALLER = {
-    get: async()=>{
+    
+    get: async({token,url})=>{
+        let endpoint = env.API_END_POINT+url
+        let headers = {"Content-Type":"application/json","token":Descifrar(token)}
 
+        try {
+            let res = await axios({method:"get",headers,url:endpoint})
+            let data = {
+                response: true,
+                message: res.data.msg ?? null,
+                results: res.data ?? []
+            }
+            return data;
+        } catch (error) {
+            let err = {
+                response: false,
+                message: error.message,
+            }
+            return err;
+        }
     },
-    insert:async()=>{
 
-    },
-    update: async()=>{
-
-    },
-    delete: async()=>{
-
-    },
 
     login: async(form)=>{
         let url = env.API_END_POINT+'users/auth'
@@ -38,15 +50,16 @@ export const APICALLER = {
     },
 
     validateToken: async(token)=>{
-        let datas = decode(token);
-        let url = env.API_END_POINT+'users/auth'
-        let headers = {"Content-Type":"application/json"}
+        
+        let url = env.API_END_POINT+'users/data'
+        let headers = {"Content-Type":"application/json","token":token}
         try {
-            let res = await axios({method:"post",headers,data:datas,url})
+            let res = await axios({method:"get",headers,url})
+
             let data = {
                 response: res.data.status,
                 message: res.data.msg ?? null,
-                results: res.data.user ?? null
+                results: res.data.data ?? null
             }
             return data;
         } catch (error) {
@@ -55,6 +68,6 @@ export const APICALLER = {
                 message: error.message,
             }
             return err;
-        } 
+        }
     }
 }

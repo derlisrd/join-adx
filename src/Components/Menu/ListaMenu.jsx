@@ -11,16 +11,16 @@ import {
   Toolbar,
 } from "@mui/material";
 import React, { Fragment, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import { env } from "../../App/config";
+import { Link, useLocation } from "react-router-dom";
 import { useTema } from "../../Context/TemaProvider";
 import { listamenu } from "../../Utils/listamenu";
 import styles from '../../Styles/Global.module.css'
+import useGoto from "../../Hooks/useGoto";
 
-const BP = env.BASE_PATH;
+//const BP = env.BASE_PATH;
 
 const ListaMenu = () => {
-  const navigate = useNavigate();
+  const navigate = useGoto();
   const location = useLocation();
   const { setTitle, changeStatusMenu } = useTema();
   const [lista, setLista] = useState(listamenu);
@@ -35,7 +35,7 @@ const ListaMenu = () => {
   const goTo = () => {changeStatusMenu(false);}
 
   const navegar = (url, title) => {
-    navigate(BP + url);
+    navigate.to(url);
     setTitle(title);
     goTo()
   };
@@ -43,7 +43,7 @@ const ListaMenu = () => {
   return (
     <>
       <Toolbar>
-        <Button fullWidth onClick={()=>{ navegar('/','Página principal')}} startIcon={<Icon>rocket_launch</Icon>}>ADMANAGER</Button>
+        <Button fullWidth onClick={()=>{ navegar('','Página principal')}} startIcon={<Icon>rocket_launch</Icon>}>ADMANAGER</Button>
       </Toolbar>
       <Divider />
       <List component="nav">
