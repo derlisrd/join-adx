@@ -90,7 +90,7 @@ export const listamenu = [
     },
     {
         id:11,
-        title:"Feedback",
+        title:"Atendimento",
         url:"/feedback",
         icon:"feedback",
         hr:false,

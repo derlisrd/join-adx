@@ -1,4 +1,5 @@
 import { Box, Button, Grid, LinearProgress, Typography } from "@mui/material";
+import { Container } from "@mui/system";
 import React from "react";
 import { useHome } from "./HomeProvider";
 
@@ -16,6 +17,7 @@ const Dashboard = () => {
   }
 
   return (
+    <Container maxWidth="lg">
     <Grid container spacing={2}>
       <Grid item xs={12} sm={12} md={8}>
         <Box
@@ -30,19 +32,19 @@ const Dashboard = () => {
             </Grid>
             <Grid xs={12} sm={12} md={6} lg={3} item>
               <Typography variant="body1">Hoje, até o momento</Typography>
-              <Typography variant="h6">{data.revenue} US$</Typography>
+              <Typography variant="h6">{data.today_revenue} US$</Typography>
             </Grid>
             <Grid xs={12} sm={12} md={6} lg={3} item>
               <Typography variant="body1">Ontem</Typography>
-              <Typography variant="h6">39,9 US$</Typography>
+              <Typography variant="h6">{data.yesterday_revenue} US$</Typography>
             </Grid>
             <Grid xs={12} sm={12} md={6} lg={3} item>
               <Typography variant="body1">Últimos 7 días</Typography>
-              <Typography variant="h6">539,9 US$</Typography>
+              <Typography variant="h6">{data.lastseven_revenue} US$</Typography>
             </Grid>
             <Grid xs={12} sm={12} md={6} lg={3} item>
               <Typography variant="body1">Este mes</Typography>
-              <Typography variant="h6">1539,9 US$</Typography>
+              <Typography variant="h6">{(data.month_revenue).toFixed(2)} US$</Typography>
             </Grid>
           </Grid>
         </Box>
@@ -87,19 +89,19 @@ const Dashboard = () => {
             </Grid>
             <Grid item xs={12} md={6}>
               <Typography variant="body1">Impressoes</Typography>
-              <Typography variant="h6">{data.impressions}</Typography>
+              <Typography variant="h6">{data.today_impressions}</Typography>
             </Grid>
             <Grid item xs={12} md={6}>
               <Typography variant="body1">eCPM</Typography>
-              <Typography variant="h6">{data.ecpm} Us$</Typography>
+              <Typography variant="h6">{data.today_ecpm} Us$</Typography>
             </Grid>
             <Grid item xs={12} md={6}>
               <Typography variant="body1">Cliques</Typography>
-              <Typography variant="h6">{data.clicks}</Typography>
+              <Typography variant="h6">{data.today_clicks}</Typography>
             </Grid>
             <Grid item xs={12} md={6}>
               <Typography variant="subtitle2">CTR de página</Typography>
-              <Typography variant="h6">0,90%</Typography>
+              <Typography variant="h6">{data.today_ctr} % </Typography>
             </Grid>
           </Grid>
           <Button>Ver relatorio</Button>
@@ -108,6 +110,7 @@ const Dashboard = () => {
 
       <Grid item xs={12} sm={12} md={6}></Grid>
     </Grid>
+    </Container>
   );
 };
 

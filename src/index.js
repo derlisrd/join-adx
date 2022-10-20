@@ -1,17 +1,21 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
+import React from "react";
+import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import TemaProvider from "./Context/TemaProvider";
 import Pages from "./Pages";
-import reportWebVitals from './reportWebVitals';
+import reportWebVitals from "./reportWebVitals";
+import { QueryClient, QueryClientProvider } from "react-query";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const queryCliente = new QueryClient()
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-    <BrowserRouter>
+  <BrowserRouter>
+    <QueryClientProvider client={queryCliente}>
       <TemaProvider>
         <Pages />
       </TemaProvider>
-    </BrowserRouter>
+    </QueryClientProvider>
+  </BrowserRouter>
 );
 
 // If you want to start measuring performance in your app, pass a function
