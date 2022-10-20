@@ -111,6 +111,7 @@ const HomeProvider = ({children}) => {
           info.today_ecpm = (parseFloat(info.today_ecpm) / info.today_count).toFixed(2)
           
           info.today_ctr = (info.today_clicks / info.today_impressions ) * 100
+          info.today_ctr = isNaN(info.today_ctr) ? 0  : (info.today_ctr).toFixed(2)
           setData(info)
         }
         setLoading(false)
