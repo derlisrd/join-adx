@@ -40,5 +40,12 @@ export const functions = {
         date = date.toString().padStart(2, '0');
         month = month.toString().padStart(2, '0');
         return `${date}-${month}-${year}`
-    }
+    },
+    dateDMY: (date= new Date())=> {
+        return [
+          (date.getDate()).toString().padStart(2, '0'),
+          (date.getMonth() + 1).toString().padStart(2, '0'),
+          date.getFullYear(),
+        ].join('-');
+      }
 }

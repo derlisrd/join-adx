@@ -117,7 +117,7 @@ const HomeProvider = ({children}) => {
         setLoading(false)
     },[todayDMY,firstdaymonthDMY,token_user,yesterdayDMY,lastsevendays])
     
-    console.log(data)
+  
    
 
     useEffect(() => {

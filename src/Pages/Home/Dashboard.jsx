@@ -40,7 +40,7 @@ const Dashboard = () => {
             </Grid>
             <Grid xs={12} sm={12} md={6} lg={3} item>
               <Typography variant="body1">Últimos 7 días</Typography>
-              <Typography variant="h6">{data.lastseven_revenue} US$</Typography>
+              <Typography variant="h6">{(data.lastseven_revenue).toFixed(2)} US$</Typography>
             </Grid>
             <Grid xs={12} sm={12} md={6} lg={3} item>
               <Typography variant="body1">Este mes</Typography>
@@ -69,7 +69,7 @@ const Dashboard = () => {
           border={1}
           borderColor="background.paper"
           boxShadow={3}
-          backgroundColor="background.paper"
+          bgcolor="background.paper"
           padding={2}
           borderRadius={2}
         >

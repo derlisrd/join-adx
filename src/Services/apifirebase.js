@@ -1,5 +1,6 @@
 import { initializeApp } from "firebase/app";
-import {createUserWithEmailAndPassword, getAuth} from 'firebase/auth'
+import {createUserWithEmailAndPassword, getAuth,signInWithEmailAndPassword,signOut} from 'firebase/auth'
+import {doc,getDoc,getFirestore,serverTimestamp,setDoc, updateDoc} from 'firebase/firestore'
 import { env } from "../App/config";
 
 const firebaseConfig = {
@@ -14,18 +15,86 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth()
-
+const db = getFirestore()
 
 
 export const APICALLER_FIREBASE = {
 
-    register : async({email,name,password})=>{
-        let res = await createUserWithEmailAndPassword(name,email,password)
+    update: async({documento,id,params})=>{
         try {
-            return res;
+            let res = await updateDoc(doc(db,documento,id),params)  
+            return res.data
         } catch (error) {
-            console.log(res)
+            return {
+                response:false,
+                error: error
+            } 
         }
+    },
+    get : async({documento,id,params={}})=>{
+        try {
+            let res = await getDoc(doc(db,documento,id))
+            if(!res.exists()){
+             let u = await  setDoc(doc(db,documento,id),params)
+             return u.data()
+            }
+            return {
+                response:true,
+                results: res.data()
+            }
+        } catch (error) {
+            return {
+                response:false,
+                error: error
+            } 
+        }
+    },
+    register : async({email,password})=>{
+       let res = await createUserWithEmailAndPassword(auth, email, password)
+       try {
+            let datetime = new Date()
+             await setDoc( doc(db,'users',res.user.uid),{
+                email:email,
+                online:true,
+                rol:0,
+                user_id:res.user.uid,
+                date:datetime,
+                datetime: serverTimestamp()
+            })
+
+            return {
+                message:"",
+                response:true,
+                results: res.user
+            } 
+
+        } catch (error) {
+            console.log(error)
+        }
+    },
+    login: async({email,password})=>{
+        try {
+            let res = await signInWithEmailAndPassword(auth, email, password)
+                return {
+                    message:"",
+                    response:true,
+                    results: res.user
+                }
+            } catch (error) {
+                return {
+                    error: error.code,
+                    message:error.message,
+                    response:false
+                }
+            }
+    },
+    logout: async()=>{
+
+        signOut(auth).then(() => {
+            console.log("out");
+          }).catch((error) => {
+            // An error happened.
+          });
     }
 }
 

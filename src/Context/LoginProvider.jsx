@@ -2,6 +2,7 @@ import {createContext,useContext,useState,useEffect,useCallback} from 'react';
 import { APICALLER } from '../Services/api';
 import {  env } from "../App/config";
 import CryptoJS from "crypto-js";
+import { APICALLER_FIREBASE } from '../Services/apifirebase';
 
 const LoginContext = createContext()
 
@@ -23,7 +24,8 @@ const LoginProvider = ({children}) => {
         email:null,
         remember:false,
         network:"",
-        id:""
+        id:"",
+        uid:null
     }
     const [userData,setUserData] = useState( storage ?? initialUserData);    
     
@@ -38,7 +40,7 @@ const LoginProvider = ({children}) => {
     }
 
 
-    const logOut = useCallback(()=>{
+    const logOut = useCallback(async()=>{
         
         setUserData({
             login:false,
@@ -47,11 +49,12 @@ const LoginProvider = ({children}) => {
             email:null,
             remember:false,
             network:"",
-            id:""
+            id:"",
+            uid:null
         });
         localStorage.removeItem("userData");
         sessionStorage.removeItem("userData");
-
+        await APICALLER_FIREBASE.logout()
     },[])
 
 
@@ -62,7 +65,13 @@ const LoginProvider = ({children}) => {
         let res = promise[0];
         if(res.response){
             let resp = await APICALLER.validateToken(res.results.token);
-            //console.log(resp);
+            
+            let resfirebase = await APICALLER_FIREBASE.login({email:f.email,password:f.password})
+            if(!resfirebase.response){
+                resfirebase = await APICALLER_FIREBASE.register({email:f.email,password:f.password})
+            }
+            
+
             setearLogin({
                 login:true,
                 token_user: CifrarTexto( res.results.token ),
@@ -70,9 +79,10 @@ const LoginProvider = ({children}) => {
                 remember:remember,
                 name:resp.results.name,
                 network:resp.results.network,
-                id:resp.results.id
+                id:resp.results.id,
+                uid:resfirebase.results.uid
             },remember)
-                
+
             setLoad({login:false,active:false,msj:null});
         }
         else{
