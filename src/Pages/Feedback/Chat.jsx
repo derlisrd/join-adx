@@ -11,21 +11,12 @@ const Chat = () => {
   const [count,setCount] = useState(0)
   
   const [timer,setTimer] = useState(functions.setTime(180))
-  //const [active,setActive] = useState(false)
- 
-  /* const [error,setError] = useState({
-    active:false,
-    message:null
-  }) */
   const {uid} = userData 
   const initialChat = {
     otherid:null,
     datetime: functions.dateDMY(),
     uid:uid,
-    messages:[
-      
-    ],
-    counteo:0
+    messages:[]
   }
 
   const [chat,setChat] = useState(initialChat)
@@ -67,9 +58,7 @@ const Chat = () => {
       otherid:null,
       datetime: functions.dateDMY(),
       uid:uid,
-      messages:[
-        
-      ]
+      messages:[]
     }
     
     let res  = await APICALLER_FIREBASE.get({documento:"chats",id:uid,params:initial})
