@@ -112,7 +112,7 @@ const Dashboard = () => {
       </Grid>
 
       <Grid item xs={12} sm={12} md={6}>
-        <Card sx={{ maxWidth: 345 }}>
+        <Card >
             <CardMedia
               component="img"
               height="140"

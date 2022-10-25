@@ -8,6 +8,15 @@ import History from './Components/History'
 const Chat = () => {
 
   const {userData} = useLogin()
+  const [count,setCount] = useState(0)
+  
+  const [timer,setTimer] = useState(functions.setTime(180))
+  //const [active,setActive] = useState(false)
+ 
+  /* const [error,setError] = useState({
+    active:false,
+    message:null
+  }) */
   const {uid} = userData 
   const initialChat = {
     otherid:null,
@@ -15,7 +24,8 @@ const Chat = () => {
     uid:uid,
     messages:[
       
-    ]
+    ],
+    counteo:0
   }
 
   const [chat,setChat] = useState(initialChat)
@@ -28,21 +38,26 @@ const Chat = () => {
   }
 
   const insertMessage = async()=>{
-    if(inputText===""){
-      return false
-    }
+    if(inputText==="") return false
     setInputText("")
     let datas = {...chat}
     datas.messages.push({
       id:uid,
       message:inputText,
-      date: new Date()
+      date: functions.datetimeDMYHMS()
     })
+    setCount(count+1)
+    setTimer(functions.setTime(180))
     setChat(datas)
-    ref.current?.scrollIntoView()
+    var sc = document.getElementById("your_div")
+    sc.scrollTo(0,(sc.scrollHeight + 40) )
     await APICALLER_FIREBASE.update({documento:"chats",id:uid,params:datas})
     inputRef.current.focus()
   }
+
+
+
+
   const handleEnter = e=>{
     if(e.code==='Enter') insertMessage()
   }
@@ -56,13 +71,33 @@ const Chat = () => {
         
       ]
     }
-    let res = await APICALLER_FIREBASE.get({documento:"chats",id:uid,params:initial})
-    if(res.response){
+    
+    let res  = await APICALLER_FIREBASE.get({documento:"chats",id:uid,params:initial})
+    if(res?.response){
+      //console.log(count,res.results.messages.length)
+      if(count!==res.results.messages.length){
+        var sc = document.getElementById("your_div")
+        sc?.scrollTo(0,sc.scrollHeight )
+        setTimer(functions.setTime(180))
+      }
+      setCount(res.results.messages.length)
       setChat(res.results)
     }
-  },[uid])
+    
+  },[uid,count])
 
-  setTimeout(getDatas, 30000);
+  
+  
+
+
+  setTimeout(()=>{
+    if(timer > functions.getTime()){
+      getDatas()
+      console.log("AINDA ONLINE")
+    }else{
+      console.log("TA OFFLINE")
+    }
+  }, 30000);
 
   useEffect(() => {
     const ca = new AbortController(); let isActive = true;
@@ -75,10 +110,13 @@ const Chat = () => {
     };
   }, [getDatas]);
 
+
+
+
   return (
     <Container maxWidth="lg">
 
-      <Box borderRadius={2} p={1} boxShadow={2} sx={{ height:`calc(100vh - 180px)`, overflow:"scroll" }} ref={ref} >
+      <Box borderRadius={2} p={1} boxShadow={2} sx={{ height:`calc(100vh - 180px)`, overflowY:'scroll' }} id="your_div" ref={ref} >
         <History datas={chat} uid={uid} />
       </Box>
 

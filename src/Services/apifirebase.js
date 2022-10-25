@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import {createUserWithEmailAndPassword, getAuth,signInWithEmailAndPassword,signOut} from 'firebase/auth'
-import {doc,getDoc,getFirestore,serverTimestamp,setDoc, updateDoc} from 'firebase/firestore'
+import {collection,getDocs, doc,getDoc,getFirestore,serverTimestamp,setDoc, updateDoc,query,where} from 'firebase/firestore'
 import { env } from "../App/config";
 
 const firebaseConfig = {
@@ -13,17 +13,32 @@ const firebaseConfig = {
     measurementId: env.FIREBASE_MEASUREMENT_ID
 };
 
-const app = initializeApp(firebaseConfig);
+export const app = initializeApp(firebaseConfig);
 const auth = getAuth()
-const db = getFirestore()
+export const db = getFirestore()
 
 
 export const APICALLER_FIREBASE = {
 
-    update: async({documento,id,params})=>{
+   
+    get_where: async({name_collection, field,operator,val})=>{
         try {
-            let res = await updateDoc(doc(db,documento,id),params)  
-            return res.data
+
+            
+            const q = query(collection(db, name_collection),where(field,operator,val));
+
+            const querySnapshot = await getDocs(q);
+            const result = []
+            querySnapshot.forEach((doc) => {
+                //doc.data() //is never undefined for query doc snapshots
+                result.push(doc.data())
+                //console.log(doc.id, " => ", doc.data());
+            }); 
+            return {
+                response:true,
+                results: result
+            }
+            
         } catch (error) {
             return {
                 response:false,
@@ -42,6 +57,17 @@ export const APICALLER_FIREBASE = {
                 response:true,
                 results: res.data()
             }
+        } catch (error) {
+            return {
+                response:false,
+                error: error
+            } 
+        }
+    },
+    update: async({documento,id,params})=>{
+        try {
+            let res = await updateDoc(doc(db,documento,id),params)  
+            return res.data
         } catch (error) {
             return {
                 response:false,

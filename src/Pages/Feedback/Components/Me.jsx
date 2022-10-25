@@ -1,18 +1,17 @@
-import { Box, Icon, Stack, Typography } from "@mui/material";
+import { Box,  Stack, Typography } from "@mui/material";
 
 const Me = ({message,date}) => {
   return (
     <Stack direction="row-reverse" spacing={1}  p={1}  >
-      <Icon>account_circle</Icon>
       <Box>
-      <Typography component="div" variant="body2">
-          Eu: <Typography component="span" variant="caption">
-          
-        </Typography>
-        </Typography>
-        <Typography component="div" variant="caption">
+
+        <Typography component="div" sx={{ bgcolor:"primary.light",p:1,borderRadius:2, }} variant="subtitle2">
           {message}
         </Typography>
+        <Typography component="span" variant="caption">
+          {date}
+        </Typography>
+
       </Box>
     </Stack>
   )

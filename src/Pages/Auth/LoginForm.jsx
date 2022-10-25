@@ -21,7 +21,7 @@ function LoginForm() {
   const [rememberMe,setRememberMe] = useState(false)
 
 
-  inputPasswordRef.current.setSelectionRange(inputPasswordRef.current.value.length, inputPasswordRef.current.value.length)
+
   const changeShowPassword = ()=>{
     setShowPassword(showPassword==='password' ? 'text' : 'password')
     inputPasswordRef.current.setSelectionRange(inputPasswordRef.current.value.length, inputPasswordRef.current.value.length)

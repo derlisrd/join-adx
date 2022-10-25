@@ -1,19 +1,18 @@
-import { Icon, Stack, Typography } from "@mui/material";
+import { Box,  Stack, Typography } from "@mui/material";
 
 const Other = ({message,date}) => {
   return (
-    <Stack direction="row" spacing={1} alignItems="start" bgcolor='primary.light' p={1} borderRadius={2} >
-      <Icon>support_agent</Icon>
-      <Stack>
-        <Typography component="div" variant="body2">
-          Suporte: <Typography component="span" variant="caption">
-          
-        </Typography>
-        </Typography>
-        <Typography component="div" variant="caption">
+    <Stack direction="row" spacing={1}  p={1}  >
+      <Box>
+
+        <Typography component="div" sx={{ bgcolor:"secondary.light",p:1,borderRadius:2, }} variant="subtitle2">
           {message}
         </Typography>
-      </Stack>
+        <Typography component="span" variant="caption">
+          {date}
+        </Typography>
+
+      </Box>
     </Stack>
   )
 }

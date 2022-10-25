@@ -47,5 +47,22 @@ export const functions = {
           (date.getMonth() + 1).toString().padStart(2, '0'),
           date.getFullYear(),
         ].join('-');
-      }
+      },
+    datetimeDMYHMS:(date = new Date())=>{
+        let fecha =  [
+            (date.getDate()).toString().padStart(2, '0'),
+            (date.getMonth() + 1).toString().padStart(2, '0'),
+            date.getFullYear(),
+          ].join('-') 
+        return fecha + ' '+date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+    },
+    getTime:()=>{
+        return new Date();
+    },
+    setTime :cant=>{
+        var date = new Date()
+        date.setSeconds(cant)
+        return date;
+    }
+    
 }

@@ -16,8 +16,8 @@ export const AvaibleColors = [
         contrastText: "#fff",
       },
       secondary: {
-        light: "#dd33fa",
-        main: "#d500f9",
+        light: "#f9b5b575",
+        main: "#f9b5b5",
         dark: "#9500ae",
         contrastText: "#000",
       },
