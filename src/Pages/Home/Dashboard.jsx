@@ -5,6 +5,8 @@ import { useHome } from "./HomeProvider";
 import MessagesImg from '../../Assets/img/messages.png'
 import Analytics from '../../Assets/img/analytics.png'
 
+import Performance from '../../Assets/img/performance.png'
+
 const Dashboard = () => {
   const { loading,data } = useHome();
 
@@ -52,10 +54,10 @@ const Dashboard = () => {
         </Box>
       </Grid>
       <Grid item xs={12} sm={12} md={4}>
-          <Card sx={{ maxWidth: 345 }}>
+          <Card >
             <CardMedia
               component="img"
-              height="140"
+              height="180"
               image={Analytics}
               alt="saldo"
             />
@@ -68,14 +70,14 @@ const Dashboard = () => {
       </Grid>
 
       <Grid item xs={12} sm={12} md={6}>
-        <Box
-          border={1}
-          borderColor="background.paper"
-          boxShadow={3}
-          bgcolor="background.paper"
-          padding={2}
-          borderRadius={2}
-        >
+        <Card >
+            <CardMedia
+              component="img"
+              height="180"
+              image={Performance}
+              alt="saldo"
+            />
+            <CardContent>
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <Typography variant="subtitle1">Hoje, até o momento</Typography>
@@ -107,15 +109,18 @@ const Dashboard = () => {
               <Typography variant="h6">{data.today_ctr} % </Typography>
             </Grid>
           </Grid>
-          <Button>Ver relatorio</Button>
-        </Box>
+          </CardContent>
+          <CardActions>
+              <Button>Ver relatorio</Button>
+            </CardActions>
+        </Card>
       </Grid>
 
       <Grid item xs={12} sm={12} md={6}>
         <Card >
             <CardMedia
               component="img"
-              height="140"
+              height="180"
               image={MessagesImg}
               alt="green iguana"
             />
