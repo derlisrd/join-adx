@@ -22,7 +22,6 @@ function RoutesMain() {
     
 
     const PrivateRoute = ({children})=>{
-      
       return login ? <MainPages>{children}</MainPages> : <Navigate to={BP+"/"} />
     }
   

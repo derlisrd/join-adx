@@ -20,9 +20,13 @@ function LoginForm() {
   const [showPassword,setShowPassword] = useState('password')
   const [rememberMe,setRememberMe] = useState(false)
 
+
+  inputPasswordRef.current.setSelectionRange(inputPasswordRef.current.value.length, inputPasswordRef.current.value.length)
   const changeShowPassword = ()=>{
     setShowPassword(showPassword==='password' ? 'text' : 'password')
+    inputPasswordRef.current.setSelectionRange(inputPasswordRef.current.value.length, inputPasswordRef.current.value.length)
     inputPasswordRef.current.focus();
+    
   }
   const change = e=>{
     const {name,value} = e.target;
@@ -74,7 +78,7 @@ function LoginForm() {
         </Grid>
         <Grid item xs={12}>
           <TextField fullWidth required type={showPassword} autoComplete="off" label="Password" name="password" value={form.password} onChange={change}
-          inputRef={inputPasswordRef} 
+          inputRef={inputPasswordRef} onFocus={(e)=>e.target.setSelectionRange(e.target.value.length, e.target.value.length)}
            InputProps={{
             startAdornment: (
               <InputAdornment position="start">

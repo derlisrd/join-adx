@@ -1,4 +1,4 @@
-import { Box,  Container, Grid, Icon, IconButton, Stack, TextField, Typography } from '@mui/material'
+import { Box,  Container,  Icon, IconButton, Stack, TextField } from '@mui/material'
 import { APICALLER_FIREBASE } from '../../Services/apifirebase';
 import { useState,useEffect,useCallback,useRef } from 'react'
 import { useLogin } from '../../Context/LoginProvider';
@@ -46,7 +46,7 @@ const Chat = () => {
   const handleEnter = e=>{
     if(e.code==='Enter') insertMessage()
   }
-
+  
   const getDatas = useCallback(async()=>{
     let initial = {
       otherid:null,
@@ -62,7 +62,7 @@ const Chat = () => {
     }
   },[uid])
 
-  setTimeout(getDatas, 15000);
+  setTimeout(getDatas, 30000);
 
   useEffect(() => {
     const ca = new AbortController(); let isActive = true;

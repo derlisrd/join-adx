@@ -1,7 +1,9 @@
-import { Box, Button, Grid, LinearProgress, Typography } from "@mui/material";
+import { Box, Button, Card, CardActions, CardContent, CardMedia, Grid,  LinearProgress, Typography } from "@mui/material";
 import { Container } from "@mui/system";
 import React from "react";
 import { useHome } from "./HomeProvider";
+import MessagesImg from '../../Assets/img/messages.png'
+import Analytics from '../../Assets/img/analytics.png'
 
 const Dashboard = () => {
   const { loading,data } = useHome();
@@ -32,11 +34,11 @@ const Dashboard = () => {
             </Grid>
             <Grid xs={12} sm={12} md={6} lg={3} item>
               <Typography variant="body1">Hoje, até o momento</Typography>
-              <Typography variant="h6">{data.today_revenue} US$</Typography>
+              <Typography variant="h6">{data.today_revenue.toFixed(2)} US$</Typography>
             </Grid>
             <Grid xs={12} sm={12} md={6} lg={3} item>
               <Typography variant="body1">Ontem</Typography>
-              <Typography variant="h6">{data.yesterday_revenue} US$</Typography>
+              <Typography variant="h6">{data.yesterday_revenue.toFixed(2)} US$</Typography>
             </Grid>
             <Grid xs={12} sm={12} md={6} lg={3} item>
               <Typography variant="body1">Últimos 7 días</Typography>
@@ -50,18 +52,19 @@ const Dashboard = () => {
         </Box>
       </Grid>
       <Grid item xs={12} sm={12} md={4}>
-        <Box
-          backgroundColor="primary.light"
-          borderColor="background.paper"
-          boxShadow={3}
-          padding={3}
-          borderRadius={2}
-        >
-          <Typography variant="h6">Saldo</Typography>
-          <Typography variant="h6">1539,9 US$</Typography>
-          <Typography variant="body2">Último pagamento:</Typography>
-          <Typography variant="subtitle2">130 Us$</Typography>
-        </Box>
+          <Card sx={{ maxWidth: 345 }}>
+            <CardMedia
+              component="img"
+              height="140"
+              image={Analytics}
+              alt="saldo"
+            />
+            <CardContent>
+            <Typography variant="h6">Saldo</Typography>
+            <Typography variant="body1"> Hoje, até o momento</Typography>
+            <Typography variant="h6"> {(data.month_revenue).toFixed(2)} US$</Typography>
+            </CardContent>
+          </Card>
       </Grid>
 
       <Grid item xs={12} sm={12} md={6}>
@@ -108,7 +111,27 @@ const Dashboard = () => {
         </Box>
       </Grid>
 
-      <Grid item xs={12} sm={12} md={6}></Grid>
+      <Grid item xs={12} sm={12} md={6}>
+        <Card sx={{ maxWidth: 345 }}>
+            <CardMedia
+              component="img"
+              height="140"
+              image={MessagesImg}
+              alt="green iguana"
+            />
+            <CardContent>
+              <Typography gutterBottom variant="h5" component="div">
+                Atendimento
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                Conectese com o nosso suporte
+              </Typography>
+            </CardContent>
+            <CardActions>
+              <Button>Contatar</Button>
+            </CardActions>
+          </Card>
+      </Grid>
     </Grid>
     </Container>
   );

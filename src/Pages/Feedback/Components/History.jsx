@@ -11,8 +11,8 @@ const History = ({ datas,uid }) => {
     <Stack spacing={1} >
       {datas.messages.map((e,i)=>(
         <Fragment key={i}>
-          {e.id === uid ? <Me message={e.message} /> :
-          <Other message={e.message} /> }
+          {e.id === uid ? <Me message={e.message}  date={e.date}/> :
+          <Other message={e.message} date={e.date} /> }
         </Fragment>
       ))}
     </Stack>
