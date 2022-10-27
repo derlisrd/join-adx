@@ -98,7 +98,7 @@ const Dashboard = () => {
             </Grid>
             <Grid item xs={12} md={6}>
               <Typography variant="body1">eCPM</Typography>
-              <Typography variant="h6">{data.today_ecpm} Us$</Typography>
+              <Typography variant="h6">{isNaN(data.today_ecpm) ? 0 : data.today_ecpm} Us$</Typography>
             </Grid>
             <Grid item xs={12} md={6}>
               <Typography variant="body1">Cliques</Typography>

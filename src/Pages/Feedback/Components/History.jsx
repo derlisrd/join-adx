@@ -8,7 +8,7 @@ const History = ({ datas,uid }) => {
  
   
   return (
-    <Stack spacing={1} >
+    <Stack spacing={1}>
       {datas.messages.map((e,i)=>(
         <Fragment key={i}>
           {e.id === uid ? <Me message={e.message}  date={e.date}/> :

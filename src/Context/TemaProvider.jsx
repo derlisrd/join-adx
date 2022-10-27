@@ -220,15 +220,9 @@ const TemaProvider = ({children})=>{
                 background:DefaultBgColor,
                 transition:'all 0.2s',
               },
-              ".swal-title":{color: colorText+"!important" },
-              ".swal-icon--success__hide-corners,.swal-icon--success:after, .swal-icon--success:before":{background:"none !important"},
-              ".swal-button":{backgroundColor: colores[tema.colors].primary.main,color:colores[tema.colors].primary.contrastText},
-              ".swal-button--cancel":{backgroundColor:colores[tema.colors].secondary.main+"!important",color:colores[tema.colors].secondary.contrastText},
-              ".swal-text":{color: colorText+"!important" },
-              ".swal-modal":{backgroundColor: PaperBgColor+"!important",},
-              "::-webkit-scrollbar": {width: "9px"},
+              "::-webkit-scrollbar": {width: "8px"},
               "::-webkit-scrollbar-track": {background: "none"},
-              "::-webkit-scrollbar-thumb": {backgroundColor: PaperBgColor,borderRadius:"3px"},
+              "::-webkit-scrollbar-thumb": {backgroundColor: "rgba(99, 115, 129, 0.48)",borderRadius:"3px"},
               "::-webkit-scrollbar-thumb:hover": {backgroundColor: "rgba(99, 115, 129, 0.48)"}
             }
           }

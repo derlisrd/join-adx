@@ -1,0 +1,23 @@
+.app_chat {
+    text-align: center;
+    max-width: 728px;
+    margin: 0 auto;
+}
+
+.app_chat_section {
+    display:flex;
+    justify-content: center;
+    min-height: 70vh;
+}
+
+
+.app_chat_send{
+    height: 10vh;
+    position: fixed;
+    bottom: 15px;
+    padding:15px;
+    width: 100%;
+    max-width: 728px;
+    display: flex;
+    font-size: 1.5rem;
+}
