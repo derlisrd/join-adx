@@ -24,22 +24,6 @@ export const listamenu = [
         sub:false
     },
     {
-        id:4,
-        title:"Privacidade e mensagens",
-        url:"/privacy",
-        icon:"manage_accounts",
-        hr:false,
-        sub:false
-    },
-    {
-        id:5,
-        title:"Brand safety",
-        url:"/brand",
-        icon:"block",
-        hr:false,
-        sub:false
-    },
-    {
         id:6,
         title:"Relatorios",
         url:"/reports",
@@ -47,22 +31,7 @@ export const listamenu = [
         hr:false,
         sub:false
     },
-    {
-        id:7,
-        title:"Otimizaçao",
-        url:"/otimizacao",
-        icon:"trending_up",
-        hr:false,
-        sub:false
-    },
-    {
-        id:8,
-        title:"Central de políticas",
-        url:"/policy",
-        icon:"policy",
-        hr:true,
-        sub:false
-    },
+
     {
         id:9,
         title:"Pagamentos",

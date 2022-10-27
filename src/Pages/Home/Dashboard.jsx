@@ -29,24 +29,25 @@ const Dashboard = () => {
           boxShadow={2}
           padding={3}
           borderRadius={2}
+          height="100%"
         >
-          <Grid container spacing={1}>
+          <Grid container spacing={2}>
             <Grid xs={12} item>
               <Typography variant="h6">Ganhos estimados</Typography>
             </Grid>
-            <Grid xs={12} sm={12} md={6} lg={3} item>
+            <Grid xs={12} sm={12} md={6} xl={3} item>
               <Typography variant="body1">Hoje, até o momento</Typography>
               <Typography variant="h6">{data.today_revenue.toFixed(2)} US$</Typography>
             </Grid>
-            <Grid xs={12} sm={12} md={6} lg={3} item>
+            <Grid xs={12} sm={12} md={6} xl={3} item>
               <Typography variant="body1">Ontem</Typography>
               <Typography variant="h6">{data.yesterday_revenue.toFixed(2)} US$</Typography>
             </Grid>
-            <Grid xs={12} sm={12} md={6} lg={3} item>
+            <Grid xs={12} sm={12} md={6} xl={3} item>
               <Typography variant="body1">Últimos 7 días</Typography>
               <Typography variant="h6">{(data.lastseven_revenue).toFixed(2)} US$</Typography>
             </Grid>
-            <Grid xs={12} sm={12} md={6} lg={3} item>
+            <Grid xs={12} sm={12} md={6} xl={3} item>
               <Typography variant="body1">Este mes</Typography>
               <Typography variant="h6">{(data.month_revenue).toFixed(2)} US$</Typography>
             </Grid>

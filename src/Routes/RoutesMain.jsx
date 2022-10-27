@@ -10,6 +10,7 @@ import Anuncios from "../Pages/Anuncios";
 import Sites from "../Pages/Sites";
 import Reports from "../Pages/Reports";
 import Feedback from "../Pages/Feedback";
+import Settings from "../Pages/Settings";
 
 const BP = env.BASE_PATH;
 
@@ -41,6 +42,7 @@ function RoutesMain() {
     
     return (
         <Routes>
+            <Route path={BP+'/settings'} element={<PrivateRoute><Settings /> </PrivateRoute>} />
             <Route path={BP+'/feedback'} element={<PrivateRoute><Feedback /> </PrivateRoute>} />
             <Route path={BP+'/reports'} element={<PrivateRoute><Reports /> </PrivateRoute>} />
             <Route path={BP+'/sites'} element={<PrivateRoute><Sites /> </PrivateRoute>} />
