@@ -1,6 +1,5 @@
 import React from 'react'
-import {createContext,useContext} from 'react';
-import { useQuery } from 'react-query';
+import {createContext,useContext,useState,useCallback,useEffect} from 'react';
 import { useLogin } from '../../Context/LoginProvider';
 import { APICALLER } from '../../Services/api';
 
@@ -10,19 +9,38 @@ const SettingsProvider = ({children}) => {
 
     const {userData} = useLogin()
     const {token_user} = userData
-    
-
-    const {isLoading,data} =  useQuery('user_data', async () => {
-        let res = await APICALLER.get({token:token_user,url:'users/data'})
-        if(res.response){
-            return (res.results.data)
-        }
+    const [data,setData] = useState({})    
+    const [isLoading,setLoading] = useState(true)
+    const [updateState,setUpdateState] = useState({
+      message:"",
+      active:false
     })
-
-
-      const values = {
-        data,isLoading
+    const update = async(f)=>{
+      let res = await APICALLER.update({token:token_user,url:'users/update',body:f})
+      if(res.response){
+        setUpdateState({message:"Atualizado! ", active:true})
       }
+    }
+
+    const getDatas = useCallback(async()=>{
+      setLoading(true)
+      let res = await APICALLER.get({token:token_user,url:'users/data'})
+      if(res.response){
+        setData(res.results.data)
+      }
+      setLoading(false)
+    },[token_user])
+
+  useEffect(() => {
+      const ca = new AbortController(); let isActive = true;
+      if (isActive) { 
+          getDatas ()
+      }
+      return () => {isActive = false;ca.abort();};
+    }, [getDatas]);
+    
+    
+    const values = {data,isLoading,update,updateState,setUpdateState}
 
 
   return (
@@ -32,7 +50,7 @@ const SettingsProvider = ({children}) => {
   )
 }
 export const useSettings = ()=>{
-    const {loading,data,isLoading} = useContext(Contexto)
-    return {loading,data,isLoading}
+    const {loading,data,isLoading,update,updateState,setUpdateState} = useContext(Contexto)
+    return {loading,data,isLoading,update,updateState,setUpdateState}
 }
 export default SettingsProvider

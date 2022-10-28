@@ -27,7 +27,26 @@ export const APICALLER = {
             return err;
         }
     },
+    update: async({token,url,body})=>{
+        let endpoint = env.API_END_POINT+url
+        let headers = {"Content-Type":"application/json","token":Descifrar(token)}
 
+        try {
+            let res = await axios({method:"put",headers,url:endpoint,data:JSON.stringify(body)})
+            let data = {
+                response: true,
+                message: res.data.msg ?? null,
+                results: res.data ?? []
+            }
+            return data;
+        } catch (error) {
+            let err = {
+                response: false,
+                message: error.message,
+            }
+            return err;
+        }
+    },
 
     login: async(form)=>{
         let url = env.API_END_POINT+'users/auth'
