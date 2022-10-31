@@ -2,24 +2,43 @@ import Accordion from '@mui/material/Accordion';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import Typography from '@mui/material/Typography';
-import { Icon, LinearProgress } from '@mui/material';
-import React from 'react'
-import { useReports } from '../ReportsProvider';
-import { Box } from '@mui/system';
+import { useLogin } from '../../../Context/LoginProvider'
+import { Icon, LinearProgress,Box } from '@mui/material';
+import {useState,useCallback} from 'react'
+import { APICALLER } from '../../../Services/api'
 
-export default function Acordeon() {
-    const {listas,loading} = useReports()
-  const [expanded, setExpanded] = React.useState(false);
+export default function Acordeon({isLoading,sites}) {
+  const [expanded, setExpanded] = useState(false);
+  const {userData} = useLogin()
+  const [idDomain,setIdDomain] = useState(null)
 
-  const handleChange = (panel) => (event, isExpanded) => {
-    setExpanded(isExpanded ? panel : false);
+  const handleChange = (panel) => (e, isExpanded) => {
+    if(isExpanded){
+      setExpanded(panel)
+      setIdDomain(panel)
+    }else{
+      setExpanded(false);
+      setIdDomain(null) 
+    }
+  }
 
-    
-  };
+  
+  const getReport = useCallback( async (id)=>{
+    if(idDomain){
+      let res = await APICALLER.get({token:userData.token_user,url:'domains/list'})
+      return res.results 
+    }
+  },[idDomain])
+  
+  const {isLoading:loading,data:report} = useQuery(['getsites'], getReport);
+
+
+
+  
   return (
     <Box sx={{ marginTop:2 }}>
-       {loading.listaSites ? <LinearProgress  /> :  
-      listas.sites.map((e,i)=>(
+       {isLoading ? <LinearProgress  /> :  
+      sites.map((e,i)=>(
         <Accordion key={i} expanded={expanded === e.id_domain} onChange={handleChange(e.id_domain)}>
         <AccordionSummary
           expandIcon={<Icon>expand_more</Icon>}
@@ -28,6 +47,7 @@ export default function Acordeon() {
           <Typography sx={{ color: 'text.secondary' }}></Typography>
         </AccordionSummary>
         <AccordionDetails>
+          <LinearProgress />
           <Typography>
             
           </Typography>

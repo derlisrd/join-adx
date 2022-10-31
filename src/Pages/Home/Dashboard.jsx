@@ -7,10 +7,11 @@ import Analytics from '../../Assets/img/analytics.png'
 import AppImg from '../../Assets/img/app.png'
 
 import Performance from '../../Assets/img/performance.png'
+import useGoto from "../../Hooks/useGoto";
 
 const Dashboard = () => {
   const { loading,data } = useHome();
-
+  const navigate = useGoto()
   if (loading) {
     return (
       <Grid container spacing={2}>
@@ -150,7 +151,7 @@ const Dashboard = () => {
               </Typography>
             </CardContent>
             <CardActions>
-              <Button>Contatar</Button>
+              <Button onClick={()=>{navigate.to('feedback')}}>Contatar</Button>
             </CardActions>
           </Card>
       </Grid>

@@ -52,6 +52,7 @@ const HomeProvider = ({children}) => {
           APICALLER.get({url:`revenue/${dateLastSevenday}`,token:token_user})
         ])
         let resMonth = promises[0], resYesterday = promises[2], resToday = promises[1], resLastSevenDay = promises[3];
+        //console.log(resToday,resMonth)
         if(resMonth.response){
           let info = {
             lastseven_revenue:0,

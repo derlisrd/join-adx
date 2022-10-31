@@ -1,6 +1,6 @@
 import { Box, Tab, Tabs } from '@mui/material'
 import React, { useState } from 'react'
-import ReportsProvider from './ReportsProvider'
+//import ReportsProvider from './ReportsProvider'
 import Sites from './Sites'
 
 const Reports = () => {
@@ -14,7 +14,7 @@ const Reports = () => {
   }
 
   return (
-    <ReportsProvider>
+    <>
       <Tabs
           indicatorColor="primary"
           textColor="primary"
@@ -32,7 +32,7 @@ const Reports = () => {
       <TabPanel value={tabValue} index={1}>
 
       </TabPanel>  
-    </ReportsProvider>
+    </>
   )
 }
 

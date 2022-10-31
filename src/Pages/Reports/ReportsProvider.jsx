@@ -25,6 +25,7 @@ const ReportsProvider = ({children}) => {
         res.results.forEach(e => {
             results.push({...e,id:e.id_domain})
         });
+        console.log(results)
         setListas({sites:results})
     }
       setLoading({main:false,listaSites:false})

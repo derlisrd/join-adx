@@ -23,6 +23,7 @@ export const APICALLER = {
             let err = {
                 response: false,
                 message: error.message,
+                results: []
             }
             return err;
         }
