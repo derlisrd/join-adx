@@ -4,6 +4,7 @@ import React from "react";
 import { useHome } from "./HomeProvider";
 import MessagesImg from '../../Assets/img/messages.png'
 import Analytics from '../../Assets/img/analytics.png'
+import AppImg from '../../Assets/img/app.png'
 
 import Performance from '../../Assets/img/performance.png'
 
@@ -70,7 +71,7 @@ const Dashboard = () => {
           </Card>
       </Grid>
 
-      <Grid item xs={12} sm={12} md={6}>
+      <Grid item xs={12} sm={12} md={4}>
         <Card >
             <CardMedia
               component="img"
@@ -82,16 +83,6 @@ const Dashboard = () => {
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <Typography variant="subtitle1">Hoje, até o momento</Typography>
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <Typography variant="subtitle2">
-                Visualizaçaos de paginas
-              </Typography>
-              <Typography variant="h6">17,0 mil</Typography>
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <Typography variant="subtitle2">RPM de página</Typography>
-              <Typography variant="h6">Us$ 1,12</Typography>
             </Grid>
             <Grid item xs={12} md={6}>
               <Typography variant="body1">Impressoes</Typography>
@@ -117,7 +108,32 @@ const Dashboard = () => {
         </Card>
       </Grid>
 
-      <Grid item xs={12} sm={12} md={6}>
+      <Grid item xs={12} sm={12} md={5}>
+        <Card >
+            <CardMedia
+              component="img"
+              height="180"
+              image={AppImg}
+              alt="green iguana"
+            />
+            <CardContent>
+              <Grid container spacing={2}>
+                <Grid item xs={12} md={6}>
+                  <Typography variant="subtitle2">
+                    Visualizaçaos de paginas
+                  </Typography>
+                  <Typography variant="h6">17,0 mil</Typography>
+                </Grid>
+                <Grid item xs={12} md={6}>
+                  <Typography variant="subtitle2">RPM de página</Typography>
+                  <Typography variant="h6">Us$ 1,12</Typography>
+                </Grid>
+              </Grid>
+            </CardContent>
+          </Card>
+      </Grid>
+
+      <Grid item xs={12} sm={12} md={3}>
         <Card >
             <CardMedia
               component="img"

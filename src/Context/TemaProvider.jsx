@@ -16,7 +16,7 @@ const TemaProvider = ({children})=>{
       currentColor: localStorageTema?.currentColor || colores["watergreen"].primary.main, //hace referencia al oclor hexadecimal
       fontSize: {
         general: localStorageTema?.fontSize.general || 14,
-        menu: localStorageTema?.fontSize.menu || 13
+        menu: localStorageTema?.fontSize.menu || 12
       }
     })
     const colorText = tema.mode==='light' ? "#4e4d4d" : "#fff";
