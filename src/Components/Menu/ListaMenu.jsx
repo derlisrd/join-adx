@@ -43,7 +43,7 @@ const ListaMenu = () => {
   return (
     <>
       <Toolbar>
-        <Button fullWidth onClick={()=>{ navegar('/home','')}} startIcon={<Icon>rocket_launch</Icon>}>ADMANAGER</Button>
+        <Button fullWidth onClick={()=>{ navegar('/home','')}} startIcon={<Icon>rocket_launch</Icon>}>SPACE ADX</Button>
       </Toolbar>
       <Divider />
       <List component="nav">

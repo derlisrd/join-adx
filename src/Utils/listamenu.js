@@ -34,20 +34,11 @@ export const listamenu = [
 
     {
         id:9,
-        title:"Pagamentos",
-        url:"/payments",
-        icon:"payments",
+        title:"URL Builder",
+        url:"/urlbuilder",
+        icon:"link",
         hr:false,
-        sub:true,
-        open:false,
-        submenu:[
-            {
-                id:12,
-                title:"Pagamentos",
-                url:"/payments",
-                icon:"payments",
-            }
-        ]
+        sub:false
     },
     {
         id:10,

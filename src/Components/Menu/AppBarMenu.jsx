@@ -13,8 +13,8 @@ const AppBarMenu = () => {
   <AppBar color='default'
         position="fixed"
         sx={{
-          width: { sm: `calc(100% - ${drawerWidth}px)` },
-          ml: { sm: `${drawerWidth}px` },
+          width: { md: `calc(100% - ${drawerWidth}px)` },
+          ml: { md: `${drawerWidth}px` },
         }}
       >
         <Toolbar >
@@ -23,7 +23,7 @@ const AppBarMenu = () => {
             aria-label="open drawer"
             edge="start"
             onClick={changeStatusMenu}
-            sx={{ mr: 2, display: { sm: 'none' } }}
+            sx={{ mr: 2, display: { md: 'none' } }}
           >
             <Icon>menu</Icon>
           </IconButton>

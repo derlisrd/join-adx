@@ -1,6 +1,25 @@
 export const functions = {
     
+    numberFormat: n=> {
+        if(isNaN(n) || !n){return "0"}
+        return parseFloat(n).toLocaleString("de-DE")
+    },
+    getMonthString: f=>{
+        const monthNames = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho","Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
 
+        const d = new Date(f);
+        return monthNames[d.getMonth()];
+    },
+    fechaDMY: (f) => {
+        let inputDate = new Date(f);
+        let date, month, year;
+        date = inputDate.getDate();
+        month = inputDate.getMonth() + 1; 
+        year = inputDate.getFullYear();
+        date = date.toString().padStart(2, '0');
+        month = month.toString().padStart(2, '0');
+        return `${date}-${month}-${year}`
+    },
     todayDMY : ()=>{
         let inputDate = new Date();
         let date, month, year;

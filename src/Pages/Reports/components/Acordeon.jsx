@@ -4,35 +4,56 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import Typography from '@mui/material/Typography';
 import { useLogin } from '../../../Context/LoginProvider'
 import { Icon, LinearProgress,Box } from '@mui/material';
-import {useState,useCallback} from 'react'
+import {useState} from 'react'
 import { APICALLER } from '../../../Services/api'
+import { functions } from '../../../Utils/Functions';
+//import { useQuery } from 'react-query';
 
 export default function Acordeon({isLoading,sites}) {
   const [expanded, setExpanded] = useState(false);
+  const {todayDMY} = functions;
   const {userData} = useLogin()
-  const [idDomain,setIdDomain] = useState(null)
-
-  const handleChange = (panel) => (e, isExpanded) => {
+  const {token_user} = userData
+  const [loading,setLoading] = useState(false)
+  //const [idDomain,setIdDomain] = useState(null)
+  const [datas,setDatas] = useState({})
+  const dateToday = `${todayDMY()}/${todayDMY()}`
+  
+  const handleChange = (panel) => async(e, isExpanded) => {
     if(isExpanded){
       setExpanded(panel)
-      setIdDomain(panel)
+      //setIdDomain(panel)
+        setLoading(true)
+        let res = await APICALLER.get({token:token_user,url:`rpm/${dateToday}/${panel}`})
+        if(res.response){
+          setDatas(res.results)
+        }
+        setLoading(false)
     }else{
       setExpanded(false);
-      setIdDomain(null) 
+      //setIdDomain(null) 
     }
   }
-
   
-  const getReport = useCallback( async (id)=>{
+  
+ /*  const getReport = useCallback( async (id)=>{
     if(idDomain){
-      let res = await APICALLER.get({token:userData.token_user,url:'domains/list'})
-      return res.results 
+      setLoading(true)
+      let res = await APICALLER.get({token:token_user,url:'rpm/31-10-2022/31-10-2022/'+idDomain})
+      if(res.response){
+        setDatas(res.results)
+      }
+      setLoading(false)
     }
-  },[idDomain])
+  },[idDomain,token_user])
+
+  useEffect(() => {
+    const ca = new AbortController(); let isActive = true;
+    if (isActive) {getReport();}
+    return () => {isActive = false;ca.abort();};
+  }, [getReport]); */
   
-  const {isLoading:loading,data:report} = useQuery(['getsites'], getReport);
-
-
+  
 
   
   return (
@@ -47,9 +68,15 @@ export default function Acordeon({isLoading,sites}) {
           <Typography sx={{ color: 'text.secondary' }}></Typography>
         </AccordionSummary>
         <AccordionDetails>
+          {
+          loading &&
           <LinearProgress />
-          <Typography>
-            
+          }
+          <Typography variant='subtitle2'>
+            Impressions: {datas?.impressions ?? 0}
+          </Typography>
+          <Typography variant='subtitle2'>
+            Visitas: {datas?.visits ?? 0}
           </Typography>
         </AccordionDetails>
       </Accordion>

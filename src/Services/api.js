@@ -16,14 +16,16 @@ export const APICALLER = {
             let data = {
                 response: true,
                 message: res.data.msg ?? null,
-                results: res.data ?? []
+                results: res.data ?? [],
+                first: res.data[0] ?? {}
             }
             return data;
         } catch (error) {
             let err = {
                 response: false,
                 message: error.message,
-                results: []
+                results: [],
+                first: {}
             }
             return err;
         }

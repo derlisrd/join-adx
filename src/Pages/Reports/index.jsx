@@ -22,16 +22,12 @@ const Reports = () => {
           onChange={(e, value) => {setTabValue(value);}} centered
         >
           <Tab label="Por site" />
-          <Tab label="Todos" />
+         
         </Tabs>
       
       <TabPanel value={tabValue} index={0}>
           <Sites />
       </TabPanel>
-
-      <TabPanel value={tabValue} index={1}>
-
-      </TabPanel>  
     </>
   )
 }

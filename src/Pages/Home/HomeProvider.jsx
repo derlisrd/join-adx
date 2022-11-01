@@ -10,9 +10,14 @@ const HomeContext = createContext()
 const HomeProvider = ({children}) => {
 
     const {userData} = useLogin()
-    const {token_user} = userData
-    const {todayDMY,firstdaymonthDMY,yesterdayDMY,lastsevendays} = functions;
-
+    const {token_user,network} = userData
+    const {todayDMY,firstdaymonthDMY,yesterdayDMY,lastsevendays,fechaDMY} = functions;
+    const [fechas,setFechas] = useState({
+      initial: fechaDMY(firstdaymonthDMY()),
+      final: fechaDMY(todayDMY())
+    })
+    const [sites,setSites] = useState([])
+    const [domain,setDomain] = useState({})
     const [loading,setLoading] = useState(true)
     const initialDatas = {
       lastseven_revenue:0,
@@ -38,7 +43,10 @@ const HomeProvider = ({children}) => {
     }
     const [data,setData] = useState(initialDatas)
     
-    
+    const filtrar = useCallback(async()=>{
+
+    },[])
+
     const getDatas = useCallback(async()=>{
       
         let dateMonth = `${firstdaymonthDMY()}/${todayDMY()}`
@@ -49,9 +57,16 @@ const HomeProvider = ({children}) => {
           APICALLER.get({url:`revenue/${dateMonth}`,token:token_user}),
           APICALLER.get({url:`revenue/${dateToday}`,token:token_user}),
           APICALLER.get({url:`revenue/${dateYesterday}`,token:token_user}),
-          APICALLER.get({url:`revenue/${dateLastSevenday}`,token:token_user})
+          APICALLER.get({url:`revenue/${dateLastSevenday}`,token:token_user}),
+          APICALLER.get({url:`adunit/${network}`,token:token_user})
         ])
-        let resMonth = promises[0], resYesterday = promises[2], resToday = promises[1], resLastSevenDay = promises[3];
+        let resMonth = promises[0], resYesterday = promises[2], resToday = promises[1], resLastSevenDay = promises[3], resSites = promises[4];
+       setSites(resSites.results)
+       if(resSites.first.id_site) {
+          //4553
+          let rpm = await APICALLER.get({url:`rpm/${dateToday}/${resSites.first?.id_site}`,token:token_user})
+            rpm.response ? setDomain(rpm.first) : console.log(rpm) 
+        } 
         //console.log(resToday,resMonth)
         if(resMonth.response){
           let info = {
@@ -116,24 +131,19 @@ const HomeProvider = ({children}) => {
           setData(info)
         }
         setLoading(false)
-    },[todayDMY,firstdaymonthDMY,token_user,yesterdayDMY,lastsevendays])
+    },[todayDMY,firstdaymonthDMY,token_user,yesterdayDMY,lastsevendays,network])
     
   
    
 
     useEffect(() => {
         const ca = new AbortController(); let isActive = true;
-        if (isActive) {
-          getDatas();
-        }
-        return () => {
-          isActive = false;
-          ca.abort();
-        };
+        if (isActive) {getDatas();}
+        return () => {isActive = false;ca.abort();};
       }, [getDatas]);
-
-    const values = {
-        loading,data
+    
+      const values = {
+        loading,data,domain,sites,fechas,setFechas,filtrar
     }
 
   return (
@@ -144,8 +154,8 @@ const HomeProvider = ({children}) => {
 }
 
 export function useHome(){
-    const {loading,data} = useContext(HomeContext)
-    return {loading,data}
+    const {loading,data,domain,sites,fechas,setFechas,filtrar} = useContext(HomeContext)
+    return {loading,data,domain,sites,fechas,setFechas,filtrar}
 }
 
 export default HomeProvider
