@@ -1,4 +1,4 @@
-import { Box, Button, Card, CardActions, CardContent, CardMedia, Grid,  LinearProgress, Stack,  Typography } from "@mui/material";
+import { Box, Button, Card, CardActions, CardContent, CardMedia, Grid,  LinearProgress,     Typography } from "@mui/material";
 import { Container } from "@mui/system";
 import React from "react";
 import { useHome } from "./HomeProvider";
@@ -8,10 +8,11 @@ import AppImg from '../../Assets/img/app.png'
 import Performance from '../../Assets/img/performance.png'
 import useGoto from "../../Hooks/useGoto";
 import { functions } from "../../Utils/Functions";
-import { DatePickerCustom } from "../../Components/Mui/DatePickerCustom";
+
+
 
 const Dashboard = () => {
-  const { loading,data,domain,fechas,setFechas,filtrar } = useHome();
+  const { loading,data,domain,fechas } = useHome();
   const navigate = useGoto()
   if (loading) {
     return (
@@ -23,32 +24,14 @@ const Dashboard = () => {
     );
   }
 
-console.log()
+
+
+
   return (
 
     <Container maxWidth="lg">
     <Grid container spacing={2}>
-    <Grid item xs={12} sm={12} >
-      
-    </Grid>
-    <Grid item xs={12} sm={12} >
-    <Stack spacing={2} direction="row">
-      <DatePickerCustom
-      value={(fechas.initial) }
-      label="Data inicial"
-      onChange={(d) => {setFechas({ ...fechas, initial: functions.fechaDMY( d ) });}}
-      />
-      <DatePickerCustom
-      value={(fechas.final)}
-      label="Data final"
-      onChange={(d) => {
-        let date = (new Date(d))
-        console.log(date.getDate(),date.getMonth()+1,date.getFullYear())
-      }}
-      />
-      <Button onClick={filtrar}>Filtrar</Button>
-    </Stack>
-    </Grid>
+
       <Grid item xs={12} sm={12} >
         <Box
           bgcolor='primary.light'
@@ -80,7 +63,7 @@ console.log()
           </Grid>
         </Box>
       </Grid>
-      <Grid item xs={12} sm={12} md={3}>
+      <Grid item xs={12} sm={12} md={6} lg={3}>
           <Card >
             <CardMedia
               component="img"
@@ -96,7 +79,7 @@ console.log()
           </Card>
       </Grid>
 
-      <Grid item xs={12} sm={12} md={3}>
+      <Grid item xs={12} sm={12} md={6} lg={3}>
         <Card >
             <CardMedia
               component="img"
@@ -106,19 +89,19 @@ console.log()
             />
             <CardContent>
           <Grid container spacing={2}>
-            <Grid item xs={12} md={12} lg={6}>
+            <Grid item xs={12} md={6} lg={6}>
               <Typography variant="body1">Impressoes</Typography>
               <Typography variant="h6">{data.today_impressions}</Typography>
             </Grid>
-            <Grid item xs={12} md={12} lg={6}>
+            <Grid item xs={12} md={6} lg={6}>
               <Typography variant="body1">eCPM</Typography>
               <Typography variant="h6">{isNaN(data.today_ecpm) ? 0 : data.today_ecpm} Us$</Typography>
             </Grid>
-            <Grid item xs={12} md={12} lg={6}>
+            <Grid item xs={12} md={6} lg={6}>
               <Typography variant="body1">Cliques</Typography>
               <Typography variant="h6">{data.today_clicks}</Typography>
             </Grid>
-            <Grid item xs={12} md={12} lg={6}>
+            <Grid item xs={12} md={6} lg={6}>
               <Typography variant="body1">CTR</Typography>
               <Typography variant="h6">{data.today_ctr} % </Typography>
             </Grid>
@@ -130,7 +113,7 @@ console.log()
         </Card>
       </Grid>
 
-      <Grid item xs={12} sm={12} md={3}>
+      <Grid item xs={12} sm={12} md={6} lg={3}>
         <Card >
             <CardMedia
               component="img"
@@ -155,7 +138,7 @@ console.log()
           </Card>
       </Grid>
 
-      <Grid item xs={12} sm={12} md={3}>
+      <Grid item xs={12} sm={12} md={6} lg={3}>
         <Card >
             <CardMedia
               component="img"

@@ -8,41 +8,8 @@ const listDoamins = ['versaluddigital.com', 'viajeytrabajo.com', 'mezudo.com', '
 
 const serveFunction = {
 
-    createRegister: async function(params) {
-        axios.defaults.headers.common['token'] = localStorage.getItem('auth-token-access');
-        try {
-            let storegeToken = localStorage.getItem('auth-token-access');
-            const resp = await axios({
-                method: 'POST',
-                headers: {
-                    "Content-Type": "application/json",
-                    "token": storegeToken,
-                },
-                data: params,
-                url:`${endpoint}users/register`
-            })
-            return resp;
-        }catch(e){
-            return (e);
-        }
-    },
     
-    listSupport: async () => {
-        try {
-            let storegeToken = localStorage.getItem('auth-token-access');
-            let config = {
-                headers: {
-                    "Content-Type": "application/json",
-                    "token": storegeToken,
-                }
-            }
-            let res = await axios.get(`${endpoint}tickets/list`, config);
-            res = res.data;
-            return res;
-        }catch(e){
-            return (e);
-        }
-    },
+
 
     listReports: async (params) => {
         try {

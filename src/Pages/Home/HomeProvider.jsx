@@ -11,10 +11,10 @@ const HomeProvider = ({children}) => {
 
     const {userData} = useLogin()
     const {token_user,network} = userData
-    const {todayDMY,firstdaymonthDMY,yesterdayDMY,lastsevendays,fechaDMY} = functions;
+    const {todayDMY,firstdaymonthDMY,yesterdayDMY,lastsevendays,firstDay,fechaDMY} = functions;
     const [fechas,setFechas] = useState({
-      initial: fechaDMY(firstdaymonthDMY()),
-      final: fechaDMY(todayDMY())
+      initial: firstDay(),
+      final: new Date()
     })
     const [sites,setSites] = useState([])
     const [domain,setDomain] = useState({})
@@ -44,11 +44,12 @@ const HomeProvider = ({children}) => {
     const [data,setData] = useState(initialDatas)
     
     const filtrar = useCallback(async()=>{
-
-    },[])
+      let fechaInitial = fechaDMY(fechas.initial), fechaFinal = fechaDMY(fechas.final);
+      let dateMonth = `${fechaInitial}/${fechaFinal}`
+      console.log(dateMonth)
+    },[fechas,fechaDMY])
 
     const getDatas = useCallback(async()=>{
-      
         let dateMonth = `${firstdaymonthDMY()}/${todayDMY()}`
         let dateToday = `${todayDMY()}/${todayDMY()}`
         let dateYesterday = `${yesterdayDMY()}/${yesterdayDMY()}`

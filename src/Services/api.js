@@ -8,7 +8,7 @@ const Descifrar = t => CryptoJS.AES.decrypt(t, env.SECRETO).toString(CryptoJS.en
 export const APICALLER = {
     
     get: async({token,url})=>{
-        let endpoint = env.API_END_POINT+url
+        let endpoint = env.API_END_POINT+'api/'+url
         let headers = {"Content-Type":"application/json","token":Descifrar(token)}
 
         try {
@@ -31,7 +31,7 @@ export const APICALLER = {
         }
     },
     update: async({token,url,body})=>{
-        let endpoint = env.API_END_POINT+url
+        let endpoint = env.API_END_POINT+'api/'+url
         let headers = {"Content-Type":"application/json","token":Descifrar(token)}
 
         try {
@@ -52,7 +52,7 @@ export const APICALLER = {
     },
 
     login: async(form)=>{
-        let url = env.API_END_POINT+'users/auth'
+        let url = env.API_END_POINT+'api/users/auth'
         let headers = {"Content-Type":"application/json"}
         try {
             let res = await axios({method:"post",headers,data:form,url})
@@ -73,7 +73,7 @@ export const APICALLER = {
 
     validateToken: async(token)=>{
         
-        let url = env.API_END_POINT+'users/data'
+        let url = env.API_END_POINT+'api/users/data'
         let headers = {"Content-Type":"application/json","token":token}
         try {
             let res = await axios({method:"get",headers,url})

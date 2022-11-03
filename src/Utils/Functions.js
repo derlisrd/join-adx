@@ -10,6 +10,7 @@ export const functions = {
         const d = new Date(f);
         return monthNames[d.getMonth()];
     },
+
     fechaDMY: (f) => {
         let inputDate = new Date(f);
         let date, month, year;
@@ -29,6 +30,10 @@ export const functions = {
         date = date.toString().padStart(2, '0');
         month = month.toString().padStart(2, '0');
         return `${date}-${month}-${year}`
+    },
+    firstDay: ()=>{
+        let inputDate = new Date();
+        return new Date(inputDate.getFullYear(),inputDate.getMonth(),1)
     },
     firstdaymonthDMY: ()=>{
         let inputDate = new Date();
